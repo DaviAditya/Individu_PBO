@@ -9,7 +9,7 @@ Aplikasi ini dirancang untuk mengelola proses peminjaman dan pengembalian kamera
 terstruktur dengan menerapkan konsep-konsep dasar Object-Oriented Programming (OOP). 
 Sistem ini dirancang untuk memudahkan tim atau organisasi dalam manajemen kamera yang digunakan.
 
-### Hierarki Kelas dan Inheritance
+### Hierarki Kelas dan Inheritance (Pewarisan)
 1. Kamera (Superclass):  
    File ini diletakkan dalam package com.mycompany.peminjamankamera berfungsi sebagai kelas induk yang menampung atribut umum seperti nama dan jenis,
    serta metode universal getInfo().  
