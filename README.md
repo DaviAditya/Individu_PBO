@@ -9,6 +9,25 @@ Aplikasi ini dirancang untuk mengelola proses peminjaman dan pengembalian kamera
 terstruktur dengan menerapkan konsep-konsep dasar Object-Oriented Programming (OOP). 
 Sistem ini dirancang untuk memudahkan tim atau organisasi dalam manajemen kamera yang digunakan.
 
+### Hierarki Kelas dan Inheritance
+1. Kamera (Superclass):  
+   File ini diletakkan dalam package com.mycompany.peminjamankamera berfungsi sebagai kelas induk yang menampung atribut umum seperti nama dan jenis,
+   serta metode universal getInfo().  
+   <img width="545" height="587" alt="image" src="https://github.com/user-attachments/assets/50883d8f-6a63-4afc-8862-414b8ad8592b" />  
+
+3. DSLR (Subclass):  
+   Mewarisi (extends) seluruh atribut dan metode dari kelas Kamera untuk merepresentasikan kategori kamera jenis DSLR.  
+   <img width="367" height="165" alt="image" src="https://github.com/user-attachments/assets/19dc9cdf-0f99-448a-a4ab-907532b1f3ad" />  
+ 
+4. Mirrorless (Subclass):  
+   Mewarisi (extends) seluruh atribut dan metode dari kelas Kamera untuk merepresentasikan kategori kamera jenis Mirrorless.  
+   <img width="415" height="152" alt="image" src="https://github.com/user-attachments/assets/08125840-e27a-4215-b8fa-2a2b7801727e" />
+
+5. PeminjamanKamera (Model Transaksi):  
+   File ini disesuaikan untuk menyimpan dan mengelola objek dari kelas Kamera.  
+   <img width="1201" height="762" alt="image" src="https://github.com/user-attachments/assets/8d73a7e4-bb4e-4f14-aedb-d6375a4a915b" />  
+
+
 ### Pilihan menu
 <img width="346" height="168" alt="image" src="https://github.com/user-attachments/assets/2c1224a0-64f5-45bb-a515-976d9e06ab16" />
 
@@ -28,8 +47,7 @@ Terdapat 5 pilihan menu pada Sistem Peminjaman Kamera, yaitu:
    <img width="1190" height="182" alt="image" src="https://github.com/user-attachments/assets/d75a388b-558d-45d5-9df9-f13738124218" />  
    Pada menu ini, kita dapat menginput data kamera yang sudah dikembalikan. Untuk mengembalikannya cukup input id peminjaman saja maka sisteam akan mengetahui
    kamera mana yang dikembalikan.  
-    <img width="350" height="170" alt="image" src="https://github.com/user-attachments/assets/e02a4e79-a810-4d69-8d64-f452236fe9b9" />
-
+    <img width="350" height="170" alt="image" src="https://github.com/user-attachments/assets/e02a4e79-a810-4d69-8d64-f452236fe9b9" />  
    dan ini hasil dari pengembalian kamera, sistem akan mengembalikan kamera tersebut kedalam menu Kamera Tersedia.  
    
 4. Lihat Semua Peminjaman  
