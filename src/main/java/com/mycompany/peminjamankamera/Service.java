@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.penyewaankamera;
+package com.mycompany.peminjamankamera;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,22 +12,21 @@ import java.util.List;
  * @author Dovs
  */
 public class Service {
-    private List<String> daftarKamera;        
+    private List<Kamera> daftarKamera;        
     private List<PeminjamanKamera> daftarPeminjaman;
     private int nomorBerikutnya;
- 
+
     public Service() {
         this.daftarKamera = new ArrayList<>();
         this.daftarPeminjaman = new ArrayList<>();
         this.nomorBerikutnya = 1;
     }
- 
-    // Menambahkan kamera baru
-    public void tambahKamera(String namaKamera) {
-        daftarKamera.add(namaKamera);
+
+    // Menerima objek Kamera (bisa KameraDSLR atau KameraMirrorless)
+    public void tambahKamera(Kamera kamera) {
+        daftarKamera.add(kamera);
     }
- 
-    // Mengecek kamera sedang dipinjam
+
     private boolean sedangDipinjam(String namaKamera) {
         for (PeminjamanKamera p : daftarPeminjaman) {
             if (p.getNamaKamera().equalsIgnoreCase(namaKamera) && p.getStatus().equals("Dipinjam")) {
@@ -36,14 +35,13 @@ public class Service {
         }
         return false;
     }
- 
-    // Menampilkan semua kamera yang tersedia
+
     public void tampilkanKameraTersedia() {
         System.out.println("\n=== Daftar Kamera Tersedia ===");
         boolean adaYangTersedia = false;
-        for (String namaKamera : daftarKamera) {
-            if (!sedangDipinjam(namaKamera)) {
-                System.out.println("- " + namaKamera);
+        for (Kamera k : daftarKamera) {
+            if (!sedangDipinjam(k.getNama())) {
+                System.out.println("- " + k.getInfo());
                 adaYangTersedia = true;
             }
         }
@@ -51,7 +49,7 @@ public class Service {
             System.out.println("Maaf, semua kamera sedang dipinjam.");
         }
     }
- 
+
     private PeminjamanKamera cariPeminjamanById(int idPeminjaman) {
         for (PeminjamanKamera p : daftarPeminjaman) {
             if (p.getIdPeminjaman() == idPeminjaman) {
@@ -60,10 +58,17 @@ public class Service {
         }
         return null;
     }
- 
 
     public PeminjamanKamera pinjamKamera(String namaPeminjam, String namaKamera) {
-        if (!daftarKamera.contains(namaKamera)) {
+        boolean ditemukan = false;
+        for (Kamera k : daftarKamera) {
+            if (k.getNama().equalsIgnoreCase(namaKamera)) {
+                ditemukan = true;
+                break;
+            }
+        }
+
+        if (!ditemukan) {
             System.out.println("Kamera '" + namaKamera + "' tidak ditemukan di daftar.");
             return null;
         }
@@ -71,26 +76,25 @@ public class Service {
             System.out.println("Maaf, kamera '" + namaKamera + "' sedang dipinjam orang lain.");
             return null;
         }
- 
-        PeminjamanKamera PeminjamanKameraBaru = new PeminjamanKamera(
+
+        PeminjamanKamera peminjamanBaru = new PeminjamanKamera(
                 nomorBerikutnya++,
                 namaKamera,
                 namaPeminjam,
                 LocalDate.now()
         );
- 
-        daftarPeminjaman.add(PeminjamanKameraBaru);
- 
+
+        daftarPeminjaman.add(peminjamanBaru);
+
         System.out.println("\nPeminjaman berhasil dicatat!");
-        System.out.println(PeminjamanKameraBaru);
- 
-        return PeminjamanKameraBaru;
+        System.out.println(peminjamanBaru);
+
+        return peminjamanBaru;
     }
- 
-    // Mengembalikan kamera berdasarkan id peminjaman
+
     public void kembalikanKamera(int idPeminjaman) {
         PeminjamanKamera peminjaman = cariPeminjamanById(idPeminjaman);
- 
+
         if (peminjaman == null) {
             System.out.println("Data peminjaman dengan ID " + idPeminjaman + " tidak ditemukan.");
             return;
@@ -99,15 +103,14 @@ public class Service {
             System.out.println("Peminjaman ini sudah pernah dikembalikan sebelumnya.");
             return;
         }
- 
+
         peminjaman.setTanggalKembali(LocalDate.now());
         peminjaman.setStatus("Selesai");
- 
+
         System.out.println("\nPengembalian berhasil dicatat!");
         System.out.println(peminjaman);
     }
- 
-    // Menampilkan riwayat peminjaman
+
     public void tampilkanSemuaPeminjaman() {
         System.out.println("\n=== Riwayat Semua Peminjaman ===");
         if (daftarPeminjaman.isEmpty()) {
